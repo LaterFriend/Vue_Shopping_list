@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+</head>
+
+<body>
+    <div id="shopping-list">
+        <h1>{{header}}</h1>
+        <input @keyup.enter="saveItem"
+            v-model="newItem" 
+            type="text" 
+            placeholder="Add an item">
+        <label><input type="checkbox" v-model="newItemHighPriority">High Priority</label>
+        <ul>
+            <li v-for="item in items" :key="item.id">{{item.label}}</li>
+        </ul>
+        <button 
+            @click="saveItem"
+            class="btn btn-primary">
+        Save_Item</button>
+    </div>
+
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    header: "Shopping List App",
+                    newItem: "",
+                    newItemHighPriority: false,
+                    items: [
+                        {id: 1, label:"10 party"},
+                        {id: 2, label:"2 carrots"},
+                        {id: 3, label:"1 melon"}
+                    ]
+                }
+            },
+            methods:{
+                saveItem(){
+                    this.items.push({id:this.items.length+1, label:this.newItem})
+                    this.newItem = ""
+                }
+            }
+        }).mount("#shopping-list")
+    </script>
+</body>
+
+</html>
